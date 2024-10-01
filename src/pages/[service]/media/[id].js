@@ -7,7 +7,6 @@ import { useRouter } from "next/router";
 const NewMediaDetails = () => {
   const router = useRouter();
   const { id } = router.query;
-  const serviece = "local";
   const [mediaData, setMediaData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -42,20 +41,11 @@ const NewMediaDetails = () => {
   return (
     <div>
       <Head>
-        <title>{mediaData ? mediaData.title : "Loading..."}</title>
-        <meta
-          name="description"
-          content={mediaData ? mediaData.lead : "Loading..."}
-        />
+        <title>{mediaData?.title}</title>
+        <meta name="description" content={mediaData?.lead} />
         <meta name="keywords" content="ليفربول, وست هام, كأس الرابطة" />
-        <meta
-          property="og:title"
-          content={mediaData ? mediaData.title : "Loading..."}
-        />
-        <meta
-          property="og:description"
-          content={mediaData ? mediaData.lead : "Loading..."}
-        />
+        <meta property="og:title" content={mediaData?.title} />
+        <meta property="og:description" content={mediaData?.lead} />
         <meta
           property="og:image"
           content={`https://backend.appkora.com${mediaData?.media}`}
@@ -67,8 +57,8 @@ const NewMediaDetails = () => {
         <p>Loading...</p>
       ) : mediaData ? (
         <>
-          <div>ID: {mediaData.id}</div>
-          <div> {mediaData.lead}</div>
+          <div>ID: {mediaData?.id}</div>
+          <div> {mediaData?.lead}</div>
           <img src={`https://backend.appkora.com${mediaData?.media}`} />
         </>
       ) : (
