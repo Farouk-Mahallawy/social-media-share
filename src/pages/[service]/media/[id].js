@@ -50,6 +50,8 @@ const NewMediaDetails = () => {
           property="og:image"
           content={`https://backend.appkora.com${mediaData?.media}`}
         />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         <meta property="og:url" content="https://www.twistsports.com/" />
       </Head>
       <h1>Media Details</h1>
