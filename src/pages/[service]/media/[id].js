@@ -40,21 +40,22 @@ const NewMediaDetails = () => {
 
   return (
     <div>
-      <Head>
-        <title>{mediaData?.title}</title>
-        <meta name="description" content={mediaData?.lead} />
-        <meta name="keywords" content="ليفربول, وست هام, كأس الرابطة" />
-        <meta property="og:title" content={mediaData?.title} />
-        <meta property="og:description" content={mediaData?.lead} />
-        <meta
-          property="og:image"
-          content={`https://backend.appkora.com/${mediaData?.media}`}
-        />
-        {console.log(mediaData?.media)}
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:url" content="https://www.twistsports.com/" />
-      </Head>
+      {!loading && (
+        <Head>
+          <title>{mediaData?.title}</title>
+          <meta name="description" content={mediaData?.lead} />
+          <meta name="keywords" content="ليفربول, وست هام, كأس الرابطة" />
+          <meta property="og:title" content={mediaData?.title} />
+          <meta property="og:description" content={mediaData?.lead} />
+          <meta
+            property="og:image"
+            content={`https://backend.appkora.com/${mediaData?.media ?? ""}`}
+          />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+          <meta property="og:url" content="https://www.twistsports.com/" />
+        </Head>
+      )}
       <h1>Media Details</h1>
       {mediaData ? (
         <>
