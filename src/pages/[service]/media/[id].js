@@ -53,9 +53,7 @@ const NewMediaDetails = () => {
         <meta property="og:url" content="https://www.twistsports.com/" />
       </Head>
       <h1>Media Details</h1>
-      {loading ? (
-        <p>Loading...</p>
-      ) : mediaData ? (
+      {mediaData ? (
         <>
           <div>ID: {mediaData?.id}</div>
           <div> {mediaData?.lead}</div>
