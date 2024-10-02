@@ -3,6 +3,7 @@
 import Head from "next/head";
 
 const NewMediaDetails = ({ mediaData }) => {
+  console.log(mediaData);
   if (!mediaData) {
     return <p>No media data found.</p>;
   }
@@ -23,13 +24,8 @@ const NewMediaDetails = ({ mediaData }) => {
           <>
             <meta
               property="og:image"
-              content={`https://backend.appkora.com${mediaData.media}`}
+              content={`https://backend.appkora.com${mediaData.video_cover}`}
             />
-            <meta property="og:image:width" content="1200" />
-            <meta property="og:image:height" content="630" />
-          </>
-        ) : (
-          <>
             <meta property="og:type" content="video.other" />
             <meta
               property="og:video"
@@ -38,6 +34,15 @@ const NewMediaDetails = ({ mediaData }) => {
             <meta property="og:video:type" content="video/mp4" />
             <meta property="og:video:width" content="1280" />
             <meta property="og:video:height" content="720" />
+          </>
+        ) : (
+          <>
+            <meta
+              property="og:image"
+              content={`https://backend.appkora.com${mediaData.media}`}
+            />
+            <meta property="og:image:width" content="1200" />
+            <meta property="og:image:height" content="630" />
           </>
         )}
       </Head>
@@ -93,14 +98,14 @@ export async function getServerSideProps(context) {
     }
   }
 
-  if (!isSocialMediaBot) {
-    return {
-      redirect: {
-        destination: `https://www.twistsports.com/${service}/media/${id}`,
-        permanent: false,
-      },
-    };
-  }
+  // if (!isSocialMediaBot) {
+  //   return {
+  //     redirect: {
+  //       destination: `https://www.twistsports.com/${service}/media/${id}`,
+  //       permanent: false,
+  //     },
+  //   };
+  // }
 
   return {
     props: {
