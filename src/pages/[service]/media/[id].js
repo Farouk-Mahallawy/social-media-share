@@ -6,7 +6,7 @@ const NewMediaDetails = ({ mediaData }) => {
   if (!mediaData) {
     return <p>No media data found.</p>;
   }
-
+  const isVideo = mediaData.video_cover;
   return (
     <div>
       <Head>
@@ -16,23 +16,30 @@ const NewMediaDetails = ({ mediaData }) => {
         <meta property="og:title" content={mediaData.title} />
         <meta property="og:description" content={mediaData.lead} />
         <meta
-          property="og:image"
-          content={`https://backend.appkora.com${mediaData.media}`}
-        />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta
           property="og:url"
           content={`https://www.twistsports.com/${mediaData.service}/media/${mediaData.id}`}
         />
-        <meta property="og:type" content="video.other" />
-        <meta
-          property="og:video"
-          content={`https://backend.appkora.com${mediaData.media}`}
-        />
-        <meta property="og:video:type" content="video/mp4" />
-        <meta property="og:video:width" content="1280" />
-        <meta property="og:video:height" content="720" />
+        {isVideo ? (
+          <>
+            <meta
+              property="og:image"
+              content={`https://backend.appkora.com${mediaData.media}`}
+            />
+            <meta property="og:image:width" content="1200" />
+            <meta property="og:image:height" content="630" />
+          </>
+        ) : (
+          <>
+            <meta property="og:type" content="video.other" />
+            <meta
+              property="og:video"
+              content={`https://backend.appkora.com${mediaData.media}`}
+            />
+            <meta property="og:video:type" content="video/mp4" />
+            <meta property="og:video:width" content="1280" />
+            <meta property="og:video:height" content="720" />
+          </>
+        )}
       </Head>
       <h1>Media Details</h1>
       <div>ID: {mediaData.id}</div>
