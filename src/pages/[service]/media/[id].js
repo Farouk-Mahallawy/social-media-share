@@ -25,6 +25,11 @@ const NewMediaDetails = ({ mediaData }) => {
           property="og:url"
           content={`https://www.twistsports.com/${mediaData.service}/media/${mediaData.id}`}
         />
+        <meta property="og:type" content="video.other" />
+        <meta property="og:video" content={mediaData.media} />
+        <meta property="og:video:type" content="video/mp4" />
+        <meta property="og:video:width" content="1280" />
+        <meta property="og:video:height" content="720" />
       </Head>
       <h1>Media Details</h1>
       <div>ID: {mediaData.id}</div>
