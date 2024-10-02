@@ -54,7 +54,7 @@ export async function getServerSideProps(context) {
       console.error("Failed to fetch media data:", error);
     }
   }
-  if (true) {
+  if (mediaData) {
     return {
       redirect: {
         destination: `https://www.twistsports.com/${service}/media/${id}`,
