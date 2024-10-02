@@ -31,6 +31,7 @@ const NewMediaDetails = ({ mediaData }) => {
               property="og:video"
               content={`https://backend.appkora.com${mediaData.media}`}
             />
+            <meta property="fb:app_id" content="452106727250419" />
             <meta property="og:video:type" content="video/mp4" />
             <meta property="og:video:width" content="1280" />
             <meta property="og:video:height" content="720" />
