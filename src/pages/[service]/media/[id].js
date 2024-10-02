@@ -1,11 +1,8 @@
 "use client";
 
 import Head from "next/head";
-import { useParams } from "next/navigation";
 
 const NewMediaDetails = ({ mediaData }) => {
-  const pathname = useParams();
-
   if (!mediaData) {
     return <p>No media data found.</p>;
   }
@@ -24,7 +21,10 @@ const NewMediaDetails = ({ mediaData }) => {
         />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:url" content="https://www.twistsports.com/" />
+        <meta
+          property="og:url"
+          content={`https://www.twistsports.com/${mediaData.service}/media/${mediaData.id}`}
+        />
       </Head>
       <h1>Media Details</h1>
       <div>ID: {mediaData.id}</div>
@@ -39,6 +39,7 @@ export async function getServerSideProps(context) {
   const userAgent = context.req.headers["user-agent"];
   let mediaData = null;
 
+  // Define known social media bots
   const socialMediaBots = [
     /facebookexternalhit/i,
     /Facebot/i,
@@ -47,6 +48,7 @@ export async function getServerSideProps(context) {
     /Googlebot/i,
   ];
 
+  // Check if the request is from a known bot
   const isSocialMediaBot = socialMediaBots.some((bot) => bot.test(userAgent));
 
   if (id) {
@@ -57,14 +59,22 @@ export async function getServerSideProps(context) {
           "Accept-Language": "ar",
         },
       });
+
       if (res.ok) {
         const data = await res.json();
-        mediaData = data.data;
+        if (data && data.data) {
+          mediaData = data.data;
+        } else {
+          console.error("Unexpected data format:", data);
+        }
+      } else {
+        console.error("Fetch error:", res.status, await res.text());
       }
     } catch (error) {
       console.error("Failed to fetch media data:", error);
     }
   }
+
   if (!isSocialMediaBot) {
     return {
       redirect: {
@@ -73,10 +83,10 @@ export async function getServerSideProps(context) {
       },
     };
   }
+
   return {
     props: {
       mediaData,
-      isBot,
     },
   };
 }
