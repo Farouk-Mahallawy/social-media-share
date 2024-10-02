@@ -1,22 +1,13 @@
 "use client";
 
 import Head from "next/head";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { PathnameContext } from "next/dist/shared/lib/hooks-client-context.shared-runtime";
+import { useParams } from "next/navigation";
 
-const NewMediaDetails = ({ mediaData, redirectUrl }) => {
-  const router = useRouter();
-
-  // Redirecting in useEffect if redirectUrl is provided
-  useEffect(() => {
-    if (redirectUrl) {
-      router.push(redirectUrl);
-    }
-  }, [redirectUrl, router]);
+const NewMediaDetails = ({ mediaData }) => {
+  const pathname = useParams();
 
   if (!mediaData) {
-    return <p>No media data found.</p>; // Handle the case where no data is available
+    return <p>No media data found.</p>;
   }
 
   return (
@@ -44,11 +35,8 @@ const NewMediaDetails = ({ mediaData, redirectUrl }) => {
 };
 
 export async function getServerSideProps(context) {
-  const { id } = context.query;
+  const { id, service } = context.query;
   let mediaData = null;
-  let redirectUrl = null;
-  const { req } = context;
-  const pathname = req.url;
 
   if (id) {
     try {
@@ -66,15 +54,17 @@ export async function getServerSideProps(context) {
       console.error("Failed to fetch media data:", error);
     }
   }
-
   if (true) {
-    redirectUrl = `https://www.twistsports.com${pathname}`;
+    return {
+      redirect: {
+        destination: `https://www.twistsports.com/${service}/media/${id}`,
+        permanent: false,
+      },
+    };
   }
-
   return {
     props: {
       mediaData,
-      redirectUrl, // Pass the redirect URL to the component
     },
   };
 }
