@@ -36,6 +36,7 @@ const NewMediaDetails = ({ mediaData }) => {
 
 export async function getServerSideProps(context) {
   const { id, service } = context.query;
+  const userAgent = context.req.headers["user-agent"];
   let mediaData = null;
 
   const isBot = userAgent && /bot|crawl|slurp|spider/i.test(userAgent);
