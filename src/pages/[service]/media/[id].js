@@ -3,7 +3,6 @@
 import Head from "next/head";
 
 const NewMediaDetails = ({ mediaData }) => {
-  console.log(mediaData.media);
   if (!mediaData) {
     return <p>No media data found.</p>;
   }
@@ -39,6 +38,9 @@ const NewMediaDetails = ({ mediaData }) => {
       <div>ID: {mediaData.id}</div>
       <div>{mediaData.lead}</div>
       <img src={`https://backend.appkora.com${mediaData.media}`} alt="Media" />
+      <video controls autoPlay muted width={1280} height={720}>
+        <source src={`https://backend.appkora.com${mediaData.media}`}></source>
+      </video>
     </div>
   );
 };
@@ -84,14 +86,14 @@ export async function getServerSideProps(context) {
     }
   }
 
-  // if (!isSocialMediaBot) {
-  //   return {
-  //     redirect: {
-  //       destination: `https://www.twistsports.com/${service}/media/${id}`,
-  //       permanent: false,
-  //     },
-  //   };
-  // }
+  if (!isSocialMediaBot) {
+    return {
+      redirect: {
+        destination: `https://www.twistsports.com/${service}/media/${id}`,
+        permanent: false,
+      },
+    };
+  }
 
   return {
     props: {
