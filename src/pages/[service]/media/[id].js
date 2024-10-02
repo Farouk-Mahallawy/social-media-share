@@ -39,7 +39,15 @@ export async function getServerSideProps(context) {
   const userAgent = context.req.headers["user-agent"];
   let mediaData = null;
 
-  const isBot = userAgent && /bot|crawl|slurp|spider/i.test(userAgent);
+  const socialMediaBots = [
+    /facebookexternalhit/i,
+    /Facebot/i,
+    /Twitterbot/i,
+    /LinkedInBot/i,
+    /Googlebot/i,
+  ];
+
+  const isSocialMediaBot = socialMediaBots.some((bot) => bot.test(userAgent));
 
   if (id) {
     try {
@@ -57,7 +65,7 @@ export async function getServerSideProps(context) {
       console.error("Failed to fetch media data:", error);
     }
   }
-  if (!isBot) {
+  if (!isSocialMediaBot) {
     return {
       redirect: {
         destination: `https://www.twistsports.com/${service}/media/${id}`,
@@ -68,6 +76,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       mediaData,
+      isBot,
     },
   };
 }
