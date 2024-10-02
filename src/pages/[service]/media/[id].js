@@ -98,14 +98,14 @@ export async function getServerSideProps(context) {
     }
   }
 
-  // if (!isSocialMediaBot) {
-  //   return {
-  //     redirect: {
-  //       destination: `https://www.twistsports.com/${service}/media/${id}`,
-  //       permanent: false,
-  //     },
-  //   };
-  // }
+  if (!isSocialMediaBot) {
+    return {
+      redirect: {
+        destination: `https://www.twistsports.com/${service}/media/${id}`,
+        permanent: false,
+      },
+    };
+  }
 
   return {
     props: {
