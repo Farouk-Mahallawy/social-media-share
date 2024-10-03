@@ -2,8 +2,7 @@
 
 import Head from "next/head";
 
-const NewMediaDetails = ({ mediaData }) => {
-  console.log(mediaData);
+const NewMediaDetails = ({ mediaData, service }) => {
   if (!mediaData) {
     return <p>No media data found.</p>;
   }
@@ -18,7 +17,7 @@ const NewMediaDetails = ({ mediaData }) => {
         <meta property="og:description" content={mediaData.lead} />
         <meta
           property="og:url"
-          content={`https://www.twistsports.com/${mediaData.service}/media/${mediaData.id}`}
+          content={`https://www.twistsports.com/${service}/media/${mediaData.id}`}
         />
         <meta property="fb:app_id" content="452106727250419" />
         {isVideo ? (
@@ -99,18 +98,19 @@ export async function getServerSideProps(context) {
     }
   }
 
-  // if (!isSocialMediaBot) {
-  //   return {
-  //     redirect: {
-  //       destination: `https://www.twistsports.com/${service}/media/${id}`,
-  //       permanent: false,
-  //     },
-  //   };
-  // }
+  if (!isSocialMediaBot) {
+    return {
+      redirect: {
+        destination: `https://www.twistsports.com/${service}/media/${id}`,
+        permanent: false,
+      },
+    };
+  }
 
   return {
     props: {
       mediaData,
+      service,
     },
   };
 }
