@@ -20,6 +20,7 @@ const NewMediaDetails = ({ mediaData }) => {
           property="og:url"
           content={`https://www.twistsports.com/${mediaData.service}/media/${mediaData.id}`}
         />
+        <meta property="fb:app_id" content="452106727250419" />
         {isVideo ? (
           <>
             <meta
@@ -31,7 +32,6 @@ const NewMediaDetails = ({ mediaData }) => {
               property="og:video"
               content={`https://backend.appkora.com${mediaData.media}`}
             />
-            <meta property="fb:app_id" content="452106727250419" />
             <meta property="og:video:type" content="video/mp4" />
             <meta property="og:video:width" content="1280" />
             <meta property="og:video:height" content="720" />
@@ -99,14 +99,14 @@ export async function getServerSideProps(context) {
     }
   }
 
-  if (!isSocialMediaBot) {
-    return {
-      redirect: {
-        destination: `https://www.twistsports.com/${service}/media/${id}`,
-        permanent: false,
-      },
-    };
-  }
+  // if (!isSocialMediaBot) {
+  //   return {
+  //     redirect: {
+  //       destination: `https://www.twistsports.com/${service}/media/${id}`,
+  //       permanent: false,
+  //     },
+  //   };
+  // }
 
   return {
     props: {
