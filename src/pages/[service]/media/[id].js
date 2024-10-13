@@ -41,6 +41,7 @@ const NewMediaDetails = ({ mediaData, service }) => {
               property="og:image"
               content={`https://backend.appkora.com${mediaData.media}`}
             />
+            <meta property="og:type" content="article" />
             <meta property="og:image:width" content="1200" />
             <meta property="og:image:height" content="630" />
           </>
